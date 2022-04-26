@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "reactaws",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "F:\\AWS\\React-Aws\\amplify\\backend\\api\\reactaws\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authreactaws6971f595"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
+  }
+}

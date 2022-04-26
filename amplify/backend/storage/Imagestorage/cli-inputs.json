@@ -1,0 +1,12 @@
+{
+  "resourceName": "Imagestorage",
+  "policyUUID": "b0d0fec9",
+  "bucketName": "bucket-react",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
