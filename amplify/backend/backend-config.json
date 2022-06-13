@@ -1,6 +1,6 @@
 {
   "auth": {
-    "reactaws6971f595": {
+    "reactaws4bd06d5e": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -29,12 +29,21 @@
     "reactaws": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "reactaws4bd06d5e",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
       "output": {
         "authConfig": {
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authreactaws6971f595"
+              "userPoolId": "authreactaws4bd06d5e"
             }
           },
           "additionalAuthenticationProviders": []
@@ -42,11 +51,28 @@
       }
     }
   },
+  "function": {
+    "S3Trigger28f91f0f": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    }
+  },
   "storage": {
-    "Imagestorage": {
+    "s39dc2d947": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
-      "dependsOn": []
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger28f91f0f",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ]
     }
   }
 }
