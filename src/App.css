@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.lightbox {
+  display:flex;
+  transition: 0.3s all;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hide-lightbox {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
