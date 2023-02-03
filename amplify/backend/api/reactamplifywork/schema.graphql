@@ -1,0 +1,18 @@
+type Business @model @auth(rules: [{ allow: owner, operations: [create, read, update, delete] }]) {
+  id: ID!
+  name: String!
+  about: String
+  phone: String
+  address: String
+  image: String
+  website: String
+  multiposts: [Multiposts] @hasMany
+}
+
+type Multiposts @model @auth(rules: [{ allow: owner, operations: [create, read, update, delete] }]){
+  id: ID!
+  title: String
+  fb_id: String
+  inst_id: String
+  twit_id: String
+}

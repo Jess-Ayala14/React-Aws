@@ -10,8 +10,13 @@ export const createBusiness = /* GraphQL */ `
       id
       name
       about
-      user_Id
+      phone
+      address
       image
+      website
+      multiposts {
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -27,8 +32,13 @@ export const updateBusiness = /* GraphQL */ `
       id
       name
       about
-      user_Id
+      phone
+      address
       image
+      website
+      multiposts {
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -44,10 +54,69 @@ export const deleteBusiness = /* GraphQL */ `
       id
       name
       about
-      user_Id
+      phone
+      address
       image
+      website
+      multiposts {
+        nextToken
+      }
       createdAt
       updatedAt
+      owner
+    }
+  }
+`;
+export const createMultiposts = /* GraphQL */ `
+  mutation CreateMultiposts(
+    $input: CreateMultipostsInput!
+    $condition: ModelMultipostsConditionInput
+  ) {
+    createMultiposts(input: $input, condition: $condition) {
+      id
+      title
+      fb_id
+      inst_id
+      twit_id
+      createdAt
+      updatedAt
+      businessMultipostsId
+      owner
+    }
+  }
+`;
+export const updateMultiposts = /* GraphQL */ `
+  mutation UpdateMultiposts(
+    $input: UpdateMultipostsInput!
+    $condition: ModelMultipostsConditionInput
+  ) {
+    updateMultiposts(input: $input, condition: $condition) {
+      id
+      title
+      fb_id
+      inst_id
+      twit_id
+      createdAt
+      updatedAt
+      businessMultipostsId
+      owner
+    }
+  }
+`;
+export const deleteMultiposts = /* GraphQL */ `
+  mutation DeleteMultiposts(
+    $input: DeleteMultipostsInput!
+    $condition: ModelMultipostsConditionInput
+  ) {
+    deleteMultiposts(input: $input, condition: $condition) {
+      id
+      title
+      fb_id
+      inst_id
+      twit_id
+      createdAt
+      updatedAt
+      businessMultipostsId
       owner
     }
   }

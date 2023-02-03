@@ -7,8 +7,13 @@ export const getBusiness = /* GraphQL */ `
       id
       name
       about
-      user_Id
+      phone
+      address
       image
+      website
+      multiposts {
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -26,10 +31,49 @@ export const listBusinesses = /* GraphQL */ `
         id
         name
         about
-        user_Id
+        phone
+        address
         image
+        website
         createdAt
         updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getMultiposts = /* GraphQL */ `
+  query GetMultiposts($id: ID!) {
+    getMultiposts(id: $id) {
+      id
+      title
+      fb_id
+      inst_id
+      twit_id
+      createdAt
+      updatedAt
+      businessMultipostsId
+      owner
+    }
+  }
+`;
+export const listMultiposts = /* GraphQL */ `
+  query ListMultiposts(
+    $filter: ModelMultipostsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMultiposts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        fb_id
+        inst_id
+        twit_id
+        createdAt
+        updatedAt
+        businessMultipostsId
         owner
       }
       nextToken
