@@ -7,6 +7,7 @@ type Business @model @auth(rules: [{ allow: owner, operations: [create, read, up
   image: String
   website: String
   multiposts: [Multiposts] @hasMany
+  analytics: [Analytics] @hasMany
 }
 
 type Multiposts @model @auth(rules: [{ allow: owner, operations: [create, read, update, delete] }]){
@@ -16,3 +17,12 @@ type Multiposts @model @auth(rules: [{ allow: owner, operations: [create, read, 
   inst_id: String
   twit_id: String
 }
+
+type Analytics @model @auth(rules: [{ allow: owner, operations: [create, read, update, delete] }]){
+  id: ID!
+  rate_weekFB: String
+  rate_monthFB: String
+  rate_weekIns: String
+  rate_monthIns: String
+  date_generated:String
+} 

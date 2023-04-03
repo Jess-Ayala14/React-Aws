@@ -14,6 +14,9 @@ export const getBusiness = /* GraphQL */ `
       multiposts {
         nextToken
       }
+      analytics {
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -74,6 +77,45 @@ export const listMultiposts = /* GraphQL */ `
         createdAt
         updatedAt
         businessMultipostsId
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getAnalytics = /* GraphQL */ `
+  query GetAnalytics($id: ID!) {
+    getAnalytics(id: $id) {
+      id
+      rate_weekFB
+      rate_monthFB
+      rate_weekIns
+      rate_monthIns
+      date_generated
+      createdAt
+      updatedAt
+      businessAnalyticsId
+      owner
+    }
+  }
+`;
+export const listAnalytics = /* GraphQL */ `
+  query ListAnalytics(
+    $filter: ModelAnalyticsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAnalytics(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        rate_weekFB
+        rate_monthFB
+        rate_weekIns
+        rate_monthIns
+        date_generated
+        createdAt
+        updatedAt
+        businessAnalyticsId
         owner
       }
       nextToken

@@ -17,6 +17,9 @@ export const createBusiness = /* GraphQL */ `
       multiposts {
         nextToken
       }
+      analytics {
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -39,6 +42,9 @@ export const updateBusiness = /* GraphQL */ `
       multiposts {
         nextToken
       }
+      analytics {
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -59,6 +65,9 @@ export const deleteBusiness = /* GraphQL */ `
       image
       website
       multiposts {
+        nextToken
+      }
+      analytics {
         nextToken
       }
       createdAt
@@ -117,6 +126,63 @@ export const deleteMultiposts = /* GraphQL */ `
       createdAt
       updatedAt
       businessMultipostsId
+      owner
+    }
+  }
+`;
+export const createAnalytics = /* GraphQL */ `
+  mutation CreateAnalytics(
+    $input: CreateAnalyticsInput!
+    $condition: ModelAnalyticsConditionInput
+  ) {
+    createAnalytics(input: $input, condition: $condition) {
+      id
+      rate_weekFB
+      rate_monthFB
+      rate_weekIns
+      rate_monthIns
+      date_generated
+      createdAt
+      updatedAt
+      businessAnalyticsId
+      owner
+    }
+  }
+`;
+export const updateAnalytics = /* GraphQL */ `
+  mutation UpdateAnalytics(
+    $input: UpdateAnalyticsInput!
+    $condition: ModelAnalyticsConditionInput
+  ) {
+    updateAnalytics(input: $input, condition: $condition) {
+      id
+      rate_weekFB
+      rate_monthFB
+      rate_weekIns
+      rate_monthIns
+      date_generated
+      createdAt
+      updatedAt
+      businessAnalyticsId
+      owner
+    }
+  }
+`;
+export const deleteAnalytics = /* GraphQL */ `
+  mutation DeleteAnalytics(
+    $input: DeleteAnalyticsInput!
+    $condition: ModelAnalyticsConditionInput
+  ) {
+    deleteAnalytics(input: $input, condition: $condition) {
+      id
+      rate_weekFB
+      rate_monthFB
+      rate_weekIns
+      rate_monthIns
+      date_generated
+      createdAt
+      updatedAt
+      businessAnalyticsId
       owner
     }
   }

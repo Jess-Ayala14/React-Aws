@@ -17,6 +17,9 @@ export const onCreateBusiness = /* GraphQL */ `
       multiposts {
         nextToken
       }
+      analytics {
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -39,6 +42,9 @@ export const onUpdateBusiness = /* GraphQL */ `
       multiposts {
         nextToken
       }
+      analytics {
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -59,6 +65,9 @@ export const onDeleteBusiness = /* GraphQL */ `
       image
       website
       multiposts {
+        nextToken
+      }
+      analytics {
         nextToken
       }
       createdAt
@@ -117,6 +126,63 @@ export const onDeleteMultiposts = /* GraphQL */ `
       createdAt
       updatedAt
       businessMultipostsId
+      owner
+    }
+  }
+`;
+export const onCreateAnalytics = /* GraphQL */ `
+  subscription OnCreateAnalytics(
+    $filter: ModelSubscriptionAnalyticsFilterInput
+    $owner: String
+  ) {
+    onCreateAnalytics(filter: $filter, owner: $owner) {
+      id
+      rate_weekFB
+      rate_monthFB
+      rate_weekIns
+      rate_monthIns
+      date_generated
+      createdAt
+      updatedAt
+      businessAnalyticsId
+      owner
+    }
+  }
+`;
+export const onUpdateAnalytics = /* GraphQL */ `
+  subscription OnUpdateAnalytics(
+    $filter: ModelSubscriptionAnalyticsFilterInput
+    $owner: String
+  ) {
+    onUpdateAnalytics(filter: $filter, owner: $owner) {
+      id
+      rate_weekFB
+      rate_monthFB
+      rate_weekIns
+      rate_monthIns
+      date_generated
+      createdAt
+      updatedAt
+      businessAnalyticsId
+      owner
+    }
+  }
+`;
+export const onDeleteAnalytics = /* GraphQL */ `
+  subscription OnDeleteAnalytics(
+    $filter: ModelSubscriptionAnalyticsFilterInput
+    $owner: String
+  ) {
+    onDeleteAnalytics(filter: $filter, owner: $owner) {
+      id
+      rate_weekFB
+      rate_monthFB
+      rate_weekIns
+      rate_monthIns
+      date_generated
+      createdAt
+      updatedAt
+      businessAnalyticsId
       owner
     }
   }
