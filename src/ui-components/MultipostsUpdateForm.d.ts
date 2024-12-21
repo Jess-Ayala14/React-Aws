@@ -6,8 +6,16 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { Multiposts } from "../models";
+export declare type EscapeHatchProps = {
+    [elementHierarchy: string]: Record<string, unknown>;
+} | null;
+export declare type VariantValues = {
+    [key: string]: string;
+};
+export declare type Variant = {
+    variantValues: VariantValues;
+    overrides: EscapeHatchProps;
+};
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -37,7 +45,7 @@ export declare type MultipostsUpdateFormProps = React.PropsWithChildren<{
     overrides?: MultipostsUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    multiposts?: Multiposts;
+    multiposts?: any;
     onSubmit?: (fields: MultipostsUpdateFormInputValues) => MultipostsUpdateFormInputValues;
     onSuccess?: (fields: MultipostsUpdateFormInputValues) => void;
     onError?: (fields: MultipostsUpdateFormInputValues, errorMessage: string) => void;

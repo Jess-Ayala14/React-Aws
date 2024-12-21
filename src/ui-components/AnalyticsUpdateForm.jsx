@@ -7,10 +7,10 @@
 /* eslint-disable */
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Analytics } from "../models";
-import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { API } from "aws-amplify";
+import { getAnalytics } from "../graphql/queries";
+import { updateAnalytics } from "../graphql/mutations";
 export default function AnalyticsUpdateForm(props) {
   const {
     id: idProp,
@@ -62,7 +62,12 @@ export default function AnalyticsUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Analytics, idProp)
+        ? (
+            await API.graphql({
+              query: getAnalytics.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getAnalytics
         : analyticsModelProp;
       setAnalyticsRecord(record);
     };
@@ -102,11 +107,11 @@ export default function AnalyticsUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          rate_weekFB,
-          rate_monthFB,
-          rate_weekIns,
-          rate_monthIns,
-          date_generated,
+          rate_weekFB: rate_weekFB ?? null,
+          rate_monthFB: rate_monthFB ?? null,
+          rate_weekIns: rate_weekIns ?? null,
+          rate_monthIns: rate_monthIns ?? null,
+          date_generated: date_generated ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -132,21 +137,26 @@ export default function AnalyticsUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value.trim() === "") {
-              modelFields[key] = undefined;
+            if (typeof value === "string" && value === "") {
+              modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            Analytics.copyOf(analyticsRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await API.graphql({
+            query: updateAnalytics.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                id: analyticsRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { API, Storage } from 'aws-amplify';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { listBusinesses } from './graphql/queries';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ApexCharts from 'react-apexcharts';
 import {
   createBusiness as createBusinessMutation,
   deleteBusiness as deleteBusinessMutation,
   updateBusiness as updateBusinessMutation
 } from './graphql/mutations';
-import { createMultiposts as createMultipostsMutation
+import {
+  createMultiposts as createMultipostsMutation
 } from './graphql/mutations';
 import { createStore } from 'state-pool';
+import '@aws-amplify/ui-react/styles.css';
 
 const store = createStore();
 store.setState("fileStorage", []);
 
 const initialFormState = { name: '', about: '' }
 
-const App = () => {
+const App = (singOut) => {
   const [hideLightbox, setHideLightbox] = useState(true);
   const [hideLightbox1, setHideLightbox1] = useState(true);
   const [business, setBusiness] = useState([]);
@@ -154,6 +157,24 @@ const App = () => {
     fetchBusiness();
   }
 
+  const options = {
+    chart: {
+      id: 'basic-bar',
+    },
+    xaxis: {
+      categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+    },
+    colors: ['#FF5733']
+  };
+
+  const series = [
+    {
+      name: 'Ventas',
+      data: [30, 40, 35, 50, 49],
+    },
+  ];
+
+
   return (
     <div className="App">
       <Container>
@@ -241,12 +262,16 @@ const App = () => {
                 </Col>
                 <Col md={4} />
               </Row>
+              <Row>
+                <h2>Gráfica de Ventas</h2>
+                <ApexCharts options={options} series={series} type="bar" height={350} />
+              </Row>
             </>
           ))
         }
       </Container>
       <br />
-      <AmplifySignOut />
+      <Button onClick={singOut}>Sing Out</Button>
     </div>
 
   );
